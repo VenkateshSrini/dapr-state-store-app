@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: dapr-state
+  annotations:
+    dapr.io/enabled: "true"
+    dapr.io/app-id: "dapr-state"
+    dapr.io/app-port: "80"
+    dapr.io/enable-api-logging: "true"
+  name: dapr-state
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dapr-state
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dapr-state
+    spec:
+      containers:
+      - image: venkateshsrini3/dapr-state-service
+        name: dapr-state-service
+        ports:
+        - containerPort: 80
+        env:
+        - name: "State.Store"
+          value: "redis-cache-store"
