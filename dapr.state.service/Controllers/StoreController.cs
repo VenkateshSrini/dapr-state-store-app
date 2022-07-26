@@ -21,11 +21,15 @@ namespace dapr.state.service.Controllers
             _configuration = configuration;
         }
         [HttpGet]
-        public async Task<ActionResult<ReqStoreDetails>>Get([FromRoute]int storeId)
+        public async Task<ActionResult<ReqStoreDetails>>Get(int storeId)
         {
             var storeName = _configuration["State.Store"];
+            var appName = Environment.GetEnvironmentVariable("app-id");
+            var key = (!string.IsNullOrEmpty(appName)) ? $"{appName}||{storeId}"
+                                                      : storeId.ToString();
+
             var storeDetails = await _daprClient?.GetStateEntryAsync<ReqStoreDetails>(storeName,
-                storeId.ToString());
+                key);
             return Ok(storeDetails?.Value);
 
         }

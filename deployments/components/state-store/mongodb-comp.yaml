@@ -1,0 +1,19 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: mongo-cache-store
+  namespace: m2c-steeltoe
+spec:
+  type: state.mongodb
+  version: v1
+  metadata:
+  - name: host
+    value: mongodb.state-stores.svc.cluster.local:27017
+  - name: username
+    value: root
+  - name: password
+    value: sFAoQ0ynwi  
+  - name: databaseName
+    value: admin
+  - name: params
+    value: "?authSource=admin&readPreference=primary&directConnection=true&ssl=false"

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: dapr-state
+  name: dapr-state-service
+  namespace: m2c-steeltoe
+spec:
+  ports:
+  - port: 6005
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: dapr-state
+  type: LoadBalancer
+status:
+  loadBalancer: {}

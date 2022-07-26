@@ -6,3 +6,4 @@
 /dapr.state.service/bin/Debug/net6.0
 /dapr.state.service/.vs
 /dapr.state.service/obj
+/deployments/.vs

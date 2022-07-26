@@ -4,13 +4,8 @@ metadata:
   creationTimestamp: null
   labels:
     app: dapr-state
-  annotations:
-    dapr.io/enabled: "true"
-    dapr.io/app-id: "dapr-state"
-    dapr.io/app-port: "80"
-    dapr.io/enable-api-logging: "true"
   name: dapr-state
-  namespace: default
+  namespace: m2c-steeltoe
 spec:
   replicas: 1
   selector:
@@ -22,6 +17,11 @@ spec:
       creationTimestamp: null
       labels:
         app: dapr-state
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "dapr-state"
+        dapr.io/app-port: "80"
+        dapr.io/enable-api-logging: "true"
     spec:
       containers:
       - image: venkateshsrini3/dapr-state-service
@@ -30,4 +30,6 @@ spec:
         - containerPort: 80
         env:
         - name: "State.Store"
-          value: "redis-cache-store"
+          value: "mongo-cache-store"
+        #- name: "app-id"
+        #  value: "dapr-state"
