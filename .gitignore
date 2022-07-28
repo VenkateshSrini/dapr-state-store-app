@@ -7,3 +7,6 @@
 /dapr.state.service/.vs
 /dapr.state.service/obj
 /deployments/.vs
+/dapr.state.console/.vs
+/dapr.state.console/obj
+*.user
