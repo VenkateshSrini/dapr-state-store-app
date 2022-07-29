@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  creationTimestamp: null
+  name: dapr-state-job
+  namespace: m2c-steeltoe
+spec:
+  template:
+    metadata:
+      creationTimestamp: null
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "dapr-state-job"
+        dapr.io/enable-api-logging: "true"
+    spec:
+      containers:
+      - image: venkateshsrini3/dapr-state-job
+        name: dapr-state-job
+        command: ["sh", "-c","apt-get update && apt-get -y install curl && dotnet dapr.state.console.dll && curl -X POST localhost:3500/v1.0/shutdown"]
+        env:
+        - name: "State.Store"
+          value: "mongo-cache-store"
+      restartPolicy: Never
