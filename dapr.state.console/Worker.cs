@@ -20,7 +20,7 @@ namespace dapr.state.console
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                var stateStore = _configuration["State.Store"];
+                var stateStore = _configuration["StateStore"];
                 
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 var cacheObj = new EntityObject
@@ -28,10 +28,18 @@ namespace dapr.state.console
                     Id = System.Guid.NewGuid().ToString(),
                     Name = $"Obj-{DateTime.Now}"
                 };
-                await _daprClient.SaveStateAsync<EntityObject>(stateStore, cacheObj.Id,
-                    cacheObj);
-                var newObj = await _daprClient.GetStateAsync<EntityObject>(stateStore, cacheObj.Id);
-                _logger.LogInformation($"Worker {newObj.Name}");
+                _logger.LogInformation($"Cache objected created with state store {stateStore}");
+                bool saveResult = await _daprClient.TrySaveStateAsync<EntityObject>(stateStore, cacheObj.Id,
+                cacheObj, "abc");
+                _logger.LogInformation($"Cache save result {saveResult}");
+                if (saveResult){
+                    _logger.LogInformation("*** Saved Cache Sucessfully****");
+                    var newObj = await _daprClient.GetStateAsync<EntityObject>(stateStore, cacheObj.Id);
+                    _logger.LogInformation($"Worker {newObj.Name}");
+                }
+                else
+                    _logger.LogInformation("*** Saved Cache Failed****");
+
             }
         }
         public override Task StopAsync(CancellationToken cancellationToken)

@@ -10,3 +10,4 @@
 /dapr.state.console/.vs
 /dapr.state.console/obj
 *.user
+/dapr.state.console/bin/Debug/net6.0

@@ -7,14 +7,14 @@ var isDebugging = Debugger.IsAttached;
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureHostConfiguration(configBuilder =>
     {
-        configBuilder.AddJsonFile("appsettings.json")
-                     .AddEnvironmentVariables();
-        if (args is { Length: > 0 })
-        {
-            configBuilder.AddCommandLine(args);
-        }
+        configBuilder.AddJsonFile("appsettings.json");
     })
     .ConfigureAppConfiguration((hostBuilderCtx, configBuilderCtx) => {
+        configBuilderCtx.AddEnvironmentVariables();
+        if (args is { Length: > 0 })
+        {
+            configBuilderCtx.AddCommandLine(args);
+        }
         stateStore = hostBuilderCtx.Configuration["State.Store"];
     })
     .ConfigureServices(services =>
