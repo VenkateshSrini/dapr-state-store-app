@@ -11,3 +11,4 @@
 /dapr.state.console/obj
 *.user
 /dapr.state.console/bin/Debug/net6.0
+/dapr.state.console/daprd-logs.txt
