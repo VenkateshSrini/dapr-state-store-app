@@ -17,9 +17,7 @@ spec:
       containers:
       - image: venkateshsrini3/dapr-state-job
         name: dapr-state-job
-        #command: ["sh", "-c","apt-get update && apt-get -y install curl && dotnet dapr.state.console.dll && sleep 5m && curl -X POST localhost:3500/v1.0/shutdown"]
-        command: ["sh", "-c","apt-get update && apt-get -y install curl && dotnet dapr.state.console.dll && curl -X POST localhost:3500/v1.0/shutdown"]
-        #command: ["sh", "-c","dotnet dapr.state.console.dll"]
+        command: ["sh", "-c","apt-get update && apt-get -y install curl && dotnet dapr.state.console.dll && sleep 2m && curl -X POST localhost:3500/v1.0/shutdown"]
         env:
         - name: "StateStore"
           value: "mongo-cache-store"
