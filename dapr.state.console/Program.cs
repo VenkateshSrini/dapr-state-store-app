@@ -15,7 +15,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             configBuilderCtx.AddCommandLine(args);
         }
-        stateStore = hostBuilderCtx.Configuration["State.Store"];
+        stateStore = hostBuilderCtx.Configuration["StateStore"];
     })
     .ConfigureServices(services =>
     {
